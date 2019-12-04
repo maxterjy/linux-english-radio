@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-void pad_added_handler (GstElement * src, GstPad * srcPad, AudioPlayer *player) {
+void AudioPlayer::pad_added_handler (GstElement * src, GstPad * srcPad, AudioPlayer *player) {
     GstPad *sinkPad = gst_element_get_static_pad(player->convert, "sink");
     gst_pad_link(srcPad, sinkPad);
 }
@@ -27,7 +27,7 @@ void AudioPlayer::load(char *url){
 
     g_object_set(source, "uri", url, NULL);
 
-    g_signal_connect(source, "pad-added", G_CALLBACK(pad_added_handler), this);    
+    g_signal_connect(source, "pad-added", G_CALLBACK(AudioPlayer::pad_added_handler), this);    
 
     gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
