@@ -57,6 +57,8 @@ void AudioPlayer::init(char *url){
                     strncpy(strDuration, fullDurationTime+2, 5);
                     strDuration[5] = 0;                
 
+                    ready = true;
+
                     break;
                 }
             }
@@ -101,6 +103,10 @@ char* AudioPlayer::getCurrentTime(){
     return strCurrentTime;
 }
 
+
+bool AudioPlayer::isReady(){
+    return ready;
+}
 
 // int main(int argc, char *argv[]) {
 //     AudioPlayer player(argc, argv);

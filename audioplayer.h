@@ -10,6 +10,8 @@ private:
 
     static void pad_added_handler (GstElement * src, GstPad * srcPad, AudioPlayer *player);
 
+    bool ready = false;
+
 public:
     AudioPlayer();
 
@@ -19,5 +21,7 @@ public:
 
     char* getDuration();
     char* getCurrentTime();
+
+    bool isReady();
 };
 
