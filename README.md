@@ -13,8 +13,9 @@ Features
   <a href="https://youtu.be/j6MoS8k8K1Y"><img src="https://github.com/maxterjy/voa-learning-english-linux/blob/master/screenshot/screenshot.png" width="720" alt=""></a>
 </div>
 
-<center>https://youtu.be/j6MoS8k8K1Y</center>
-
+<div align="center">
+ https://youtu.be/j6MoS8k8K1Y
+</div>
 
 
 ## Development
