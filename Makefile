@@ -1,6 +1,6 @@
 .PHONY: all audioplayer newspuller tinyxml2 app
 
-all: audioplayer newspuller
+all: app
 
 app: audioplayer newspuller
 	g++ app.cpp audioplayer.o newspuller.o -Ilib -o app -g -lpthread `pkg-config --cflags-only-I --libs gstreamer-1.0 gstreamer-audio-1.0` `curl-config --static-libs` lib/tinyxml2/libtinyxml2.a

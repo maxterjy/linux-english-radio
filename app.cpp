@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    printf("Selected: %s\n", channels[n].title.c_str());
+    printf("\n\nSelected: %s\n", channels[n].title.c_str());
     
     std::string channelID = channels[n].id;
     std::vector<News> news = newsPuller->getNews(channelID);
@@ -66,17 +66,33 @@ int main(int argc, char *argv[]) {
 
     pthread_create(&audioThread, NULL, playAudio, (void*)data);
 
-    printf("\tLoading ");
-    while (1) {
-        printf(". "); fflush(stdout);
 
+    printf("\tLoading "); fflush(stdout);
+    
+    while (1) {
         sleep(1);
+        write(STDIN_FILENO, ". ", 2);
 
         if (audioPlayer->isReady()) {
-            printf("Ready\n");
+            printf("Ready\n\n");
             break;
         }
     }
+    
+    char msg[32];
+
+    while (1) {      
+        sleep(1);  
+        sprintf(msg, "\r\tPlaying: %s / %s", audioPlayer->getCurrentTime(), audioPlayer->getDuration());
+        write(STDIN_FILENO, msg, strlen(msg));
+        
+
+        if (audioPlayer->isFinished()) {
+            
+            break;
+        }
+    }
+    printf("\n\tFinished\n");
 
 
     pthread_join(audioThread, NULL);

@@ -72,7 +72,8 @@ void AudioPlayer::init(char *url){
 
         if (msg){
             if (msg->type == GST_MESSAGE_EOS) {
-                g_print("end of sound\n");
+                finished = true;
+                // g_print("end of sound\n");
                 break;
             }
         }
@@ -106,6 +107,10 @@ char* AudioPlayer::getCurrentTime(){
 
 bool AudioPlayer::isReady(){
     return ready;
+}
+
+bool AudioPlayer::isFinished() {
+    return finished;
 }
 
 // int main(int argc, char *argv[]) {
