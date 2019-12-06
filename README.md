@@ -20,7 +20,7 @@ Youtube: https://youtu.be/eqAWmTActIw
 The project is written in C++ and using the following libaries:
 * Gstreamer 1.0 to implement audio player
 * CURL, TinyXML2 to implement news pullers
-* C Pthreads to perform UI and background task at the same time
+* C Pthreads to run UI and background task concurrently
 
 ### Building
 Install dependency  
