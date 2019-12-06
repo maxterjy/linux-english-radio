@@ -4,6 +4,7 @@
 #include <string.h>
 #include "tinyxml2/tinyxml2.h"
 
+
 void NewsPuller::pullChannelFromNetworkToFile(){
     CURL *curl = curl_easy_init();
     
@@ -90,6 +91,11 @@ void NewsPuller::loadChannelFromFile() {
         std::string sId(id);
         std::string sTitle(title);
 
+        size_t pos = sTitle.find("&amp;");
+        if (pos != std::string::npos) {
+            sTitle.replace(pos, 5, "&");
+        }
+
         channels.push_back({sId, sTitle});        
     }
 
@@ -170,8 +176,6 @@ void *pullNewsRoutine(void* arg) {
     ThreadData data = *(ThreadData*)arg;      
     NewsPuller* puller = data.puller;
     std::string channelId = data.channelID;
-
-    // printf("thread %ld pull channel %s\n", pthread_self(), data.channelID.c_str());
     
     puller->pullNews(channelId);
 }
@@ -198,15 +202,13 @@ void NewsPuller::init(){
     for(auto channel: channels) {        
         if (mNews.find(channel.id) != mNews.end()) {
             avaiableChannels.push_back(channel);
-            // std::vector<News> news = mNews[channel.id];
-            // printf("id: %s, size: %ld\n", channel.id.c_str(), news.size());
         }
     }
 }
 
-int main(int argc, char *argv[]) {
-    NewsPuller puller;
-    puller.init();
+// int main(int argc, char *argv[]) {
+//     NewsPuller puller;
+//     puller.init();
 
-    return 0;
-}
+//     return 0;
+// }

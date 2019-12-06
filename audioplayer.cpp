@@ -7,14 +7,12 @@ void AudioPlayer::pad_added_handler (GstElement * src, GstPad * srcPad, AudioPla
     gst_pad_link(srcPad, sinkPad);
 }
 
-AudioPlayer::AudioPlayer(int argc, char *argv[]){
-    gst_init(&argc, &argv);
-
+AudioPlayer::AudioPlayer(){
     strCurrentTime = (char*)malloc(16);
     strDuration = (char*)malloc(16);
 }
 
-void AudioPlayer::load(char *url){
+void AudioPlayer::init(char *url){
     source = gst_element_factory_make("uridecodebin", "source");
     convert = gst_element_factory_make("audioconvert", "convert");
     sink = gst_element_factory_make("autoaudiosink", "sink");
@@ -104,9 +102,9 @@ char* AudioPlayer::getCurrentTime(){
 }
 
 
-int main(int argc, char *argv[]) {
-    AudioPlayer player(argc, argv);
-    player.load("https://av.voanews.com/clips/VLE/2019/12/02/df3285f5-19bf-452a-a0bb-22103c2ac0e7_hq.mp3");
+// int main(int argc, char *argv[]) {
+//     AudioPlayer player(argc, argv);
+//     player.init("https://av.voanews.com/clips/VLE/2019/12/02/df3285f5-19bf-452a-a0bb-22103c2ac0e7_hq.mp3");
 
-    return 0;
-}
+//     return 0;
+// }

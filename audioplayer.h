@@ -11,9 +11,9 @@ private:
     static void pad_added_handler (GstElement * src, GstPad * srcPad, AudioPlayer *player);
 
 public:
-    AudioPlayer(int argc, char *argv[]);
+    AudioPlayer();
 
-    void load(char *url);
+    void init(char *url);
     void play();
     void pause();
 
