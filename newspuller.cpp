@@ -115,7 +115,7 @@ void NewsPuller::loadChannel() {
 }
 
 void NewsPuller::pullNews(std::string channelId) {
-    std::string url = "https://learningenglish.voanews.com/podcast/?count=10&zoneId=";
+    std::string url = "https://learningenglish.voanews.com/podcast/?count=20&zoneId=";
     url += channelId;
 
     CURL *curl = curl_easy_init();
@@ -139,7 +139,9 @@ void NewsPuller::pullNews(std::string channelId) {
     tinyxml2::XMLElement* eChannel = eRss->FirstChildElement("channel");
 
     tinyxml2::XMLElement* eItem = eChannel->FirstChildElement("item");
-
+    
+    int count = 0;
+    
     while (eItem != NULL) {
         tinyxml2::XMLElement* eTitle = eItem->FirstChildElement("title");
         tinyxml2::XMLElement* eUrl = eItem->FirstChildElement("enclosure");    
@@ -152,7 +154,9 @@ void NewsPuller::pullNews(std::string channelId) {
         mNews[channelId].push_back({ctitle, cUrl});
 
         eItem = eItem->NextSiblingElement();
-    }
+        
+        count ++;
+    }    
 }
 
 std::vector<Channel> NewsPuller::getChannels(){
@@ -173,11 +177,13 @@ typedef struct {
 } ThreadData;
 
 void *pullNewsRoutine(void* arg) {
-    ThreadData data = *(ThreadData*)arg;      
-    NewsPuller* puller = data.puller;
-    std::string channelId = data.channelID;
+    ThreadData *data = (ThreadData*)arg;      
+    NewsPuller *puller = data->puller;
+    std::string channelId = data->channelID;
     
     puller->pullNews(channelId);
+
+    delete data;
 }
 
 void NewsPuller::init(){
@@ -187,11 +193,11 @@ void NewsPuller::init(){
     int num = 0;
 
     for(auto channel: channels) {
-        ThreadData data;
-        data.puller = this;
-        data.channelID = channel.id;
+        ThreadData *data = new ThreadData();
+        data->puller = this;
+        data->channelID = channel.id;
 
-        pthread_create(&tid[num], NULL, pullNewsRoutine, (void*)&data);
+        pthread_create(&tid[num], NULL, pullNewsRoutine, (void*)data);
         num++;
     }
 
