@@ -10,10 +10,13 @@ Features
 
 ## Screencast
 <div align="center">
-  <a href="https://youtu.be/j6MoS8k8K1Y"><img src="https://github.com/maxterjy/voa-learning-english-linux/blob/master/screenshot/Screenshot%20from%202019-12-06%2019-36-10.png" width="256" alt=""></a>
+  <a href="https://youtu.be/j6MoS8k8K1Y"><img src="https://github.com/maxterjy/voa-learning-english-linux/blob/master/screenshot/screenshot.png" width="720" alt=""></a>
 </div>
 
-Youtube: https://youtu.be/j6MoS8k8K1Y
+<div align="center">
+ https://youtu.be/j6MoS8k8K1Y
+</div>
+
 
 ## Development
 ### Dependency
